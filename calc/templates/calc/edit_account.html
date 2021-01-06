@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h1 xmlns="http://www.w3.org/1999/html">{{ role }}</h1>
+<form method="POST" class="account-form">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <div class="control-group">
+        <button type="submit" class="save btn btn-success">Save</button>
+    </div>
+</form>
+{% endblock %}

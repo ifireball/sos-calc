@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Login to SoS Calc</h1>
+{% if dev_accounts %}
+<div>
+    <h2>Development accounts</h2>
+    <ul>
+        {% for account in dev_accounts %}
+            <li><a href="?next={{ request.GET.next }}&du={{ account.username }}">{{ account.username }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+{% endblock %}

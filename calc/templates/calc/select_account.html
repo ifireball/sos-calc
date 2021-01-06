@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Select account</h1>
+<ul>
+    {% for account in accounts %}
+        <li><a href="{% url "day_router" account.id %}">{{ account }}</a></li>
+    {% endfor %}
+    <li><a href="{% url "new_account" %}">Add another account</a></li>
+</ul>
+{% endblock %}
