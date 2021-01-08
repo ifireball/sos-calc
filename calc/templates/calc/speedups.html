@@ -1,4 +1,92 @@
 {% extends "base.html" %}
+
+{% load speedup_controls %}
+
 {% block content %}
 <h1>Speedups</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <div class="table-responsive">
+        <table class="table table-dark align-top">
+            <colgroup>
+                <col class="col-md-2">
+                <col class="col-md-2">
+                <col class="col-md-2">
+                <col class="col-md-2">
+                <col class="col-md-2">
+                <col class="col-md-2">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">1m</th>
+                    <th scope="col">5m</th>
+                    <th scope="col">1hr</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Total with gen. speedups</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Training</th>
+                    <td>{% speedup_input form.training_1m %}</td>
+                    <td>{% speedup_input form.training_5m %}</td>
+                    <td>{% speedup_input form.training_1h %}</td>
+                    <td>{% speedup_output speedups.training_minutes %}</td>
+                    <td>{% speedup_output speedups.training_available %}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Healing</th>
+                    <td>{% speedup_input form.healing_1m %}</td>
+                    <td>{% speedup_input form.healing_5m %}</td>
+                    <td>{% speedup_input form.healing_1h %}</td>
+                    <td>{% speedup_output speedups.healing_minutes %}</td>
+                    <td>{% speedup_output speedups.healing_available %}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Construction</th>
+                    <td>{% speedup_input form.construction_1m %}</td>
+                    <td>{% speedup_input form.construction_5m %}</td>
+                    <td>{% speedup_input form.construction_1h %}</td>
+                    <td>{% speedup_output speedups.construction_minutes %}</td>
+                    <td>{% speedup_output speedups.construction_available %}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Research</th>
+                    <td>{% speedup_input form.research_1m %}</td>
+                    <td>{% speedup_input form.research_5m %}</td>
+                    <td>{% speedup_input form.research_1h %}</td>
+                    <td>{% speedup_output speedups.research_minutes %}</td>
+                    <td>{% speedup_output speedups.research_available %}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Generic</th>
+                    <td>{% speedup_input form.generic_1m %}</td>
+                    <td>{% speedup_input form.generic_5m %}</td>
+                    <td>
+                        <div class="mb-2">
+                            {% speedup_input form.generic_1h %}
+                        </div>
+                        <div class="mb-2">
+                            <label for="id_generic_3h" class="form-label">3hrs:</label>
+                            {% speedup_input form.generic_3h %}
+                        </div>
+                        <div class="mb-2">
+                            <label for="id_generic_8h" class="form-label">8hrs:</label>
+                            {% speedup_input form.generic_8h %}
+                        </div>
+                    </td>
+                    <td>{% speedup_output speedups.generic_minutes %}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="6" style="text-align: center">
+                        <button type="submit" class="btn btn-primary btn-lg">Calculate</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</form>
 {% endblock %}

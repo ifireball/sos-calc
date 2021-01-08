@@ -9,6 +9,7 @@ django-crispy-forms = "*"
 django-feather = "*"
 
 [dev-packages]
+pytest-django = "*"
 
 [requires]
 python_version = "3.8"

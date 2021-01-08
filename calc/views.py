@@ -5,8 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import login
 
-from .models import Account, Day
-from .forms import AccountForm
+from .models import Account, Day, Speedups
+from .forms import AccountForm, SpeedupsForm
 
 
 @login_required
@@ -56,7 +56,20 @@ def feature_router(request: HttpRequest, account_id: int, day: Day):
 @login_required
 def speedups(request: HttpRequest, account_id: int, day: Day):
     account = get_object_or_404(Account, id=account_id)
-    return render(request, 'calc/speedups.html', {'account': account, 'day': day})
+    sp = Speedups.get_speedups_for_day(account, day)
+    if request.method == 'POST':
+        form = SpeedupsForm(request.POST, instance=sp)
+        if form.is_valid():
+            form.save()
+            return redirect(speedups, account_id, day)
+    else:
+        form = SpeedupsForm(instance=sp)
+    return render(request, 'calc/speedups.html', {
+        'account': account,
+        'day': day,
+        'speedups': sp,
+        'form': form,
+    })
 
 
 def login_form(request):
