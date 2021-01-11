@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import login
+from constance import config
 
 from .models import Account, Day, Speedups
 from .forms import AccountForm, SpeedupsForm
@@ -26,7 +27,7 @@ def new_account(request: HttpRequest):
             account = form.save(commit=False)
             account.user = request.user
             account.save()
-            return redirect(feature_router, account.id)
+            return redirect(day_router, account.id)
     else:
         form = AccountForm()
     return render(
@@ -73,7 +74,12 @@ def speedups(request: HttpRequest, account_id: int, day: Day):
 
 
 def login_form(request):
-    context = {}
+    settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
+    settings.SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config.SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET
+
+    context = {"auth_configured": (
+        bool(config.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY) and bool(config.SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET)
+    )}
     if settings.DEBUG:
         if 'du' in request.GET:
             try:

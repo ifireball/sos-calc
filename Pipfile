@@ -7,6 +7,8 @@ name = "pypi"
 django = "*"
 django-crispy-forms = "*"
 django-feather = "*"
+social-auth-app-django = "*"
+django-constance = {extras = ["database"], version = "*"}
 
 [dev-packages]
 pytest-django = "*"

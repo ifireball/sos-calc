@@ -3,6 +3,20 @@
 <h1>Login to SoS Calc</h1>
 {% if dev_accounts %}
 <div>
+    {% if auth_configured %}
+        <h2>Login via</h2>
+        <ul>
+            <li><a href="{% url "social:begin" "google-oauth2" %}">Google</a></li>
+        </ul>
+    {% else %}
+        <h2>Logins are  not configured!</h2>
+        <p>Please go into <a href="/admin/constance/config/">this admin page</a> and configure the Google client ID
+        and client secret. For further details see
+            <a href="https://python-social-auth.readthedocs.io/en/latest/backends/google.html#google-oauth2">
+                here
+            </a>.
+        </p>
+    {% endif %}
     <h2>Development accounts</h2>
     <ul>
         {% for account in dev_accounts %}

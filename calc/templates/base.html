@@ -50,9 +50,12 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="accountDisplay">
                         {% if account %}
-                        <li><a class="dropdown-item" href="{% url 'select_account' %}">Switch account</a></li>
+                            <li><a class="dropdown-item" href="{% url 'select_account' %}">Switch account</a></li>
+                            <li><p class="dropdown-item">Logged in as: {{ request.user.get_username }}</p></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                        {% else %}
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                         {% endif %}
-                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                     </ul>
                 </li>
             </ul>
